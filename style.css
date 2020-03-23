@@ -1,0 +1,10 @@
+body {
+    background: url(bg1.png)
+}
+
+h1 {
+    background-color: green;
+    border: #004400 solid;
+    border-radius: 5px;
+    text-align: center;
+}
