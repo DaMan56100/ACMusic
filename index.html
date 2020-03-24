@@ -8,5 +8,12 @@
     </head>
     <body>
         <h1>Listen Away...</h1>
+        <h2><span>Player Controls</span></h2>
+        <span class = "loading" style = "display: inline;">Loading URL Data...</span>
+        <button onclick="play()" class="player" style = "display: none;">Start</button>
+        <button onclick="pause()"class="player" style = "display: none;">Pause</button><br/><br/>
+        <h2><span>Volume</span></h2>
+        <input type="range" min = "0" max = "1" step = "any" oninput="volumeChange()" id = "volume"/><br/><br/>
+        
     </body>
 </html>
