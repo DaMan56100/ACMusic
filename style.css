@@ -13,3 +13,11 @@ h1, button, span {
 span {
     padding: 5px;
 }
+
+button:hover{
+    background-color: #007700;
+}
+
+button:active{
+    background-color: #005000;
+}
