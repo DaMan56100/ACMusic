@@ -118,8 +118,8 @@ function checkHour() {
                 date.getFullYear(),
                 date.getMonth(),
                 date.getDate(),
-                date.getHours(),
-                date.getMinutes() + 1,
+                date.getHours() + 1,
+                0,
                 0,
                 0
             )
