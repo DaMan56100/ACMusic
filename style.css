@@ -8,6 +8,7 @@ h1, button, span {
     border: #004400 solid;
     border-radius: 5px;
     text-align: center;
+    opacity: 1;
 }
 
 span {
@@ -20,4 +21,19 @@ button:hover{
 
 button:active{
     background-color: #005000;
+}
+
+#mainBody {
+    width: 500px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 5px #004400 solid;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: auto;
+    margin-top: 100px;
+}
+
+#mainBody:hover {
+    background-color: rgba(255, 255, 255, 0.6);
 }
