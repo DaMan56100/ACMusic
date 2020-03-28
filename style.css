@@ -27,13 +27,15 @@ button:active{
 #mainBody, footer {
     width: 500px;
     background-color: white;
-    padding: 10px;
     border-radius: 10px;
     border: 5px #004400 solid;
     background-color: rgba(255, 255, 255, 0.5);
     margin: auto;
     margin-top: 100px;
     transition: background-color 0.1s;
+
+    grid-column: 2;
+    grid-row: 2;
 }
 
 #mainBody:hover, footer:hover {
@@ -58,4 +60,11 @@ footer a {
 
 footer:hover a:hover {
     color: #00AA00;
+}
+
+section {
+    display: grid;
+
+    grid-template-columns: auto 500px auto;
+    grid-template-rows: auto min-content auto;
 }
