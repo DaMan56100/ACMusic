@@ -1,6 +1,7 @@
 body {
     background: url(bg1.png);
     text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1, button, span {
@@ -23,7 +24,7 @@ button:active{
     background-color: #005000;
 }
 
-#mainBody {
+#mainBody, footer {
     width: 500px;
     background-color: white;
     padding: 10px;
@@ -32,8 +33,29 @@ button:active{
     background-color: rgba(255, 255, 255, 0.5);
     margin: auto;
     margin-top: 100px;
+    transition: background-color 0.1s;
 }
 
-#mainBody:hover {
+#mainBody:hover, footer:hover {
     background-color: rgba(255, 255, 255, 0.6);
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    border: 0px;
+    border-top: 5px #004400 solid;
+    border-radius: 0px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #004400;
+    transition: color 0.5s;
+}
+
+footer:hover a:hover {
+    color: #00AA00;
 }
