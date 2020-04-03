@@ -32,6 +32,7 @@ async function loadFile() {
 }
     
 async function play() {
+    volumeChange()
     if (playerOn) {
         pause();
     }
