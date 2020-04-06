@@ -9,17 +9,6 @@ const chimeURL = "https://dl.dropbox.com/s/ex418k6cu0tmgoo/chime.mp3"
 async function init() {
     soundURLs = await loadFile()
 
-    // after loading files show the player buttons
-    let loadingElements = document.getElementsByClassName("loading")
-    for (let i = 0; i < loadingElements.length; i++) {
-        loadingElements.item(i).style.display = "none"
-    }
-
-    let playerElements = document.getElementsByClassName("player")
-    for (let i = 0; i < playerElements.length; i++) {
-        playerElements.item(i).style.display = "inline"
-    }
-
     playerOn = false
 
     setInterval(checkHour,1000)
