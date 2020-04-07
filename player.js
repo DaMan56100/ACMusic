@@ -1,15 +1,51 @@
 var currentSound
 var soundURLs
-var playerOn = false
+var state = "idle"
 var chimeSound
 const soundURLsURL = "https://dl.dropbox.com/s/ze0stpqc6b0sj9p/trackURLs.json"
 const chimeURL = "https://dl.dropbox.com/s/ex418k6cu0tmgoo/chime.mp3"
 
+browser.browserAction.onClicked.addListener(handlePress);
+
+async function handlePress() {
+    switch (state) {
+        case "idle":
+            await init()
+            await play()
+            break;
+            
+        case "paused":
+            await play()
+            break;
+
+        case "playing":
+            pause()
+            break;
+    }
+}
+
+function updateIcon(on) {
+    if (on) {
+        browser.browserAction.setIcon({
+            path: {
+                19: "icons/on-19.png",
+                38: "icons/on-38.png"
+            }
+        })
+    } else {
+        browser.browserAction.setIcon({
+            path: {
+                19: "icons/off-19.png",
+                38: "icons/off-38.png"
+            }
+        })
+    }
+}
 
 async function init() {
     soundURLs = await loadFile()
 
-    playerOn = false
+    state = "paused"
 
     setInterval(checkHour,1000)
 }
@@ -19,13 +55,12 @@ async function loadFile() {
     var data = await response.json()
     return data
 }
-    
+
 async function play() {
-    volumeChange()
-    if (playerOn) {
+    if (state == "playing") {
         pause();
     }
-    playerOn = true
+    state = "playing"
     hour = (new Date()).getHours()
     soundURLData = soundURLs[hour];
     intro = loadIntro(soundURLData.intro);
@@ -38,6 +73,7 @@ async function play() {
     currentSound = main;
     main.play()
 
+    updateIcon(true)
 }
 
 function loadIntro(introURL) {
@@ -67,7 +103,9 @@ async function playIntro(intro) {
 
 function pause() {
     currentSound.stop();
-    playerOn = false
+    state = "paused"
+
+    updateIcon(false)
 }
 
 time = 1584986400;
@@ -75,21 +113,14 @@ function test() {
 
 }
 
-function volumeChange() {
-    let newVolume = parseFloat(document.getElementById("volume").value)
-    Howler.volume(newVolume)
-}
-
 var startedHourCountdown = false
 function checkHour() {
-    if (!playerOn) {
+    if (state != "playing") {
         return
     }
     let date = new Date();
     if (date.getMinutes() == 59) {
-        console.log("59th minute")
         if (date.getSeconds() == 50) {
-            console.log("began fading")
             currentSound.fade(1,0,9000)
         }
         
@@ -115,7 +146,6 @@ function checkHour() {
             )
 
             let msTillNextHour = nextHourDate.getTime() - date.getTime()
-            console.log(msTillNextHour)
             startedHourCountdown = true
             setTimeout(switchHour,msTillNextHour)
             chimeSound = new Howl({ // loads the sound ready
@@ -128,7 +158,7 @@ function checkHour() {
 }
 
 async function switchHour() {
-    if (!playerOn) {
+    if (state != "playing") {
         return
     }
     

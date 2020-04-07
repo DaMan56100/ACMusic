@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "ACMusic",
+  "version": "0.1",
+
+  "browser_action": {
+    "default_icon": {
+      "19": "icons/off-19.png",
+      "38": "icons/off-38.png"
+    }
+  },
+  "background": {
+    "page": "background-page.html"
+  }
+}
