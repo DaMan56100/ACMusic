@@ -5,22 +5,26 @@ var chimeSound
 const soundURLsURL = "https://dl.dropbox.com/s/ze0stpqc6b0sj9p/trackURLs.json"
 const chimeURL = "https://dl.dropbox.com/s/ex418k6cu0tmgoo/chime.mp3"
 
-browser.browserAction.onClicked.addListener(handlePress);
+browser.runtime.onMessage.addListener((message) => {
+    handleMessage(message)
+})
 
-async function handlePress() {
-    switch (state) {
-        case "idle":
-            await init()
+async function handleMessage(message) {
+    if (state = "idle") {
+        await init()
+    }
+    switch (message.title) {
+        case "play":
             await play()
-            break;
+            break
             
-        case "paused":
-            await play()
-            break;
-
-        case "playing":
+        case "pause":
             pause()
-            break;
+            break
+
+        case "volumeChange":
+            volumeChange(message.newVolume)
+            break
     }
 }
 
@@ -106,6 +110,10 @@ function pause() {
     state = "paused"
 
     updateIcon(false)
+}
+
+function volumeChange(newVolume) {
+    Howler.volume(newVolume)
 }
 
 time = 1584986400;

@@ -7,9 +7,14 @@
     "default_icon": {
       "19": "icons/off-19.png",
       "38": "icons/off-38.png"
-    }
+    },
+    "default_popup": "popup/popup.html"
   },
   "background": {
     "page": "background-page.html"
-  }
+  },
+  "permissions": [
+    "cookies",
+    "<all_urls>"
+  ]
 }
