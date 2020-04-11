@@ -1,21 +1,21 @@
 document.querySelector("#playButton").addEventListener("click", () => {
-    browser.runtime.sendMessage({
+    chrome.runtime.sendMessage({
         title: "volumeChange",
         newVolume: getVolume()
     })
-    browser.runtime.sendMessage({
+    chrome.runtime.sendMessage({
         title: "play"
     })
 })
 
 document.querySelector("#pauseButton").addEventListener("click", () => {
-    browser.runtime.sendMessage({
+    chrome.runtime.sendMessage({
         title: "pause"
     })
 })
 
 document.querySelector("#volumeSlider").addEventListener("input", () => {
-    browser.runtime.sendMessage({
+    chrome.runtime.sendMessage({
         title: "volumeChange",
         newVolume: getVolume()
     })
@@ -23,19 +23,14 @@ document.querySelector("#volumeSlider").addEventListener("input", () => {
 
 document.querySelector("#volumeSlider").addEventListener("change", async () => {
     let newVolume = getVolume();
-    let volumeCookie = await browser.cookies.set({
-        url: "https://daman56100.github.io/ACMusic/",
-        name: "AC Volume",
-        value: newVolume
-    })
+    chrome.storage.sync.set({volume:newVolume}, () => {})
 })
 
 window.onload = async () => {
-    let volumeCookie = await browser.cookies.get({
-        name: "AC Volume",
-        url: "https://daman56100.github.io/ACMusic/"
+    chrome.storage.sync.get(['volume'], (respone) => {
+        document.querySelector("#volumeSlider").value = respone.volume
+        console.log(respone.volume)
     })
-    document.querySelector("#volumeSlider").value = volumeCookie.value
 }
 
 function getVolume() {
