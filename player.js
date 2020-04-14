@@ -4,8 +4,24 @@ var state = "idle"
 var chimeSound
 const soundURLsURL = "https://dl.dropbox.com/s/ze0stpqc6b0sj9p/trackURLs.json"
 const chimeURL = "https://dl.dropbox.com/s/ex418k6cu0tmgoo/chime.mp3"
+const onIconDetails = {
+    path: {
+      16: "icons/on-16.png",
+      32: "icons/on-32.png",
+      48: "icons/on-48.png",
+      128: "icons/on-128.png"
+    }
+}
+const offIconDetails = {
+    path: {
+      16: "icons/off-16.png",
+      32: "icons/off-32.png",
+      48: "icons/off-48.png",
+      128: "icons/off-128.png"
+    }
+}
 
-browser.runtime.onMessage.addListener((message) => {
+chrome.runtime.onMessage.addListener((message) => {
     handleMessage(message)
 })
 
@@ -30,19 +46,9 @@ async function handleMessage(message) {
 
 function updateIcon(on) {
     if (on) {
-        browser.browserAction.setIcon({
-            path: {
-                19: "icons/on-19.png",
-                38: "icons/on-38.png"
-            }
-        })
+        chrome.browserAction.setIcon(onIconDetails)
     } else {
-        browser.browserAction.setIcon({
-            path: {
-                19: "icons/off-19.png",
-                38: "icons/off-38.png"
-            }
-        })
+        chrome.browserAction.setIcon(offIconDetails)
     }
 }
 
@@ -133,16 +139,6 @@ function checkHour() {
         }
         
         if (!startedHourCountdown) {
-            // let nextHourDate = new Date(
-            //     date.getFullYear(),
-            //     date.getMonth(),
-            //     date.getDate(),
-            //     date.getHours() + 1,
-            //     0,
-            //     0,
-            //     0
-            // )
-            
             let nextHourDate = new Date(
                 date.getFullYear(),
                 date.getMonth(),
