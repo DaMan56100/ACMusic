@@ -30,10 +30,10 @@ public class Player {
                     }
 
                     System.out.println("Default mixer: " + AudioSystem.getMixer(null).getMixerInfo());
-                    System.out.println("  Using mixer: " + foundInfo.toString());
+                    //System.out.println("  Using mixer: " + foundInfo.toString());
 
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("bsc.wav"));
-                    Clip clip = AudioSystem.getClip(foundInfo);
+                    Clip clip = AudioSystem.getClip();
                     clip.open(audioInputStream);
                     clip.start();
 
