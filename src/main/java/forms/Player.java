@@ -21,19 +21,14 @@ public class Player {
             public void actionPerformed(ActionEvent e) {
                 try {
                     System.out.println("All mixers:");
-                    Mixer.Info foundInfo = null;
                     for (Mixer.Info m : AudioSystem.getMixerInfo()) {
                         System.out.println(m.getName());
-                        if (m.getName().equals("HDMI [plughw:0,8]")) {
-                            foundInfo = m;
-                        }
                     }
 
                     System.out.println("Default mixer: " + AudioSystem.getMixer(null).getMixerInfo());
-                    System.out.println("  Using mixer: " + foundInfo.toString());
 
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("bsc.wav"));
-                    Clip clip = AudioSystem.getClip(foundInfo);
+                    Clip clip = AudioSystem.getClip();
                     clip.open(audioInputStream);
                     clip.start();
 
