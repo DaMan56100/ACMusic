@@ -1,11 +1,18 @@
 package main.java.forms;
 
+import main.java.ac.ACBellTrack;
+import main.java.ac.ACHourTrack;
+import main.java.ac.ACTrackGenerationException;
+
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Player {
     private JFrame displayFrame;
@@ -16,30 +23,21 @@ public class Player {
         displayFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         displayFrame.setSize(400,200);
 
-        btnPlay.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    System.out.println("All mixers:");
-                    for (Mixer.Info m : AudioSystem.getMixerInfo()) {
-                        System.out.println(m.getName());
-                    }
-
-                    System.out.println("Default mixer: " + AudioSystem.getMixer(null).getMixerInfo());
-
-                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("bsc.wav"));
-                    Clip clip = AudioSystem.getClip();
-                    clip.open(audioInputStream);
-                    clip.start();
-
-                    System.out.println((new File("").getAbsolutePath()));
-                } catch (UnsupportedAudioFileException ex) {
-                    ex.printStackTrace();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (LineUnavailableException ex) {
-                    ex.printStackTrace();
-                }
+        btnPlay.addActionListener(e -> {
+            try {
+                int hour = LocalDateTime.now().getHour();
+                ACHourTrack hourTrack = new ACHourTrack(hour);
+                hourTrack.start();
+            } catch (ACTrackGenerationException ex) {
+                ex.printStackTrace();
+            }
+        });
+        btnStop.addActionListener(e -> {
+            try {
+                ACBellTrack bellTrack = new ACBellTrack();
+                bellTrack.start();
+            } catch (ACTrackGenerationException ex) {
+                ex.printStackTrace();
             }
         });
     }
