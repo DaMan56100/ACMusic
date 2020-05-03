@@ -2,12 +2,17 @@ package main.java.forms;
 
 import main.java.ac.ACBellTrack;
 import main.java.ac.ACHourTrack;
+import main.java.ac.ACTrack;
 import main.java.ac.ACTrackGenerationException;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -39,6 +44,9 @@ public class Player {
             } catch (ACTrackGenerationException ex) {
                 ex.printStackTrace();
             }
+        });
+        numVolume.addChangeListener(e -> {
+            ACTrack.volume =
         });
     }
 

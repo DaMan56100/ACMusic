@@ -31,6 +31,7 @@ public class ACHourTrack implements ACTrack {
             if (loopURL != null) {
                 loopClip = AudioSystem.getClip();
                 loopClip.open(AudioSystem.getAudioInputStream(loopURL));
+                loopClip.loop(Clip.LOOP_CONTINUOUSLY);
             } else throw new ACTrackGenerationException(String.format("Track %s doesn't exist in %s",loopPath,TRACKS_CLEAR_DIRECTORY));
         } catch (LineUnavailableException e) {
             throw new ACTrackGenerationException(e);
