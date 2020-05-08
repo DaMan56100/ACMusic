@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ACMusic.iml" filepath="$PROJECT_DIR$/ACMusic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ACMusic.iml" filepath="$PROJECT_DIR$/.idea/ACMusic.iml" />
     </modules>
   </component>
 </project>
