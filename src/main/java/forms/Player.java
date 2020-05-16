@@ -1,53 +1,25 @@
 package main.java.forms;
 
-import main.java.ac.ACBellTrack;
-import main.java.ac.ACHourTrack;
-import main.java.ac.ACTrack;
-import main.java.ac.ACTrackGenerationException;
+import main.java.ClipUtils;
+import main.java.ac.*;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Player {
     private JFrame displayFrame;
+    ACSoundSystem soundSystem = new ACSoundSystem();
 
     public Player() {
         displayFrame = new JFrame("AC Music Player");
         displayFrame.setContentPane(panMain);
         displayFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         displayFrame.setSize(400,200);
+        numVolume.setValue((int)(ClipUtils.DEFAULT_VOLUME * 100));
 
-        btnPlay.addActionListener(e -> {
-            try {
-                int hour = LocalDateTime.now().getHour();
-                ACHourTrack hourTrack = new ACHourTrack(hour);
-                hourTrack.start();
-            } catch (ACTrackGenerationException ex) {
-                ex.printStackTrace();
-            }
-        });
-        btnStop.addActionListener(e -> {
-            try {
-                ACBellTrack bellTrack = new ACBellTrack();
-                bellTrack.start();
-            } catch (ACTrackGenerationException ex) {
-                ex.printStackTrace();
-            }
-        });
-        numVolume.addChangeListener(e -> {
-            ACTrack.volume =
-        });
+        btnPlay.addActionListener(e -> soundSystem.play());
+        btnStop.addActionListener(e -> soundSystem.pause());
+        numVolume.addChangeListener(e -> soundSystem.setVolume(numVolume.getValue() / 100f));
     }
 
     public void show() {

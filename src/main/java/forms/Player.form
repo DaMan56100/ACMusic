@@ -78,6 +78,9 @@
             </constraints>
             <properties>
               <maximum value="100"/>
+              <paintTicks value="false"/>
+              <paintTrack value="true"/>
+              <snapToTicks value="false"/>
             </properties>
           </component>
           <component id="d4e34" class="javax.swing.JLabel">
