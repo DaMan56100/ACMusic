@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.net.URL;
 
 public class ACBellTrack implements ACTrack {
-    private Clip bellClip;
+    private ACClipWrapper bellClip;
 
     public ACBellTrack() throws ACTrackGenerationException {
         try {
             URL bellURL = getClass().getResource(BELL_PATH);
-            bellClip = AudioSystem.getClip();
-            bellClip.open(AudioSystem.getAudioInputStream(bellURL));
+            bellClip = new ACClipWrapper(AudioSystem.getClip(),false);
+            bellClip.clip.open(AudioSystem.getAudioInputStream(bellURL));
         } catch (LineUnavailableException e) {
             throw new ACTrackGenerationException(e);
         } catch (IOException e) {
@@ -25,12 +25,17 @@ public class ACBellTrack implements ACTrack {
     }
 
     @Override
-    public void start() {
-        bellClip.start();
+    public ACClipWrapper getIntroClip() {
+        return null;
     }
 
     @Override
-    public void stop() {
-        bellClip.stop();
+    public ACClipWrapper getMainClip() {
+        return bellClip;
+    }
+
+    @Override
+    public boolean doesLoopMain() {
+        return false;
     }
 }

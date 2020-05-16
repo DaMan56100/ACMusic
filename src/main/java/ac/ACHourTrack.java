@@ -6,8 +6,8 @@ import java.net.URL;
 
 public class ACHourTrack implements ACTrack {
 
-    private Clip introClip;
-    private Clip loopClip;
+    private ACClipWrapper introClip;
+    private ACClipWrapper loopClip;
     private boolean hasIntro;
 
     public ACHourTrack(int hour) throws ACInvalidHourException, ACTrackGenerationException {
@@ -23,15 +23,14 @@ public class ACHourTrack implements ACTrack {
         hasIntro = false;
         try {
             if (introURL != null) {
-                introClip = AudioSystem.getClip();
-                introClip.open(AudioSystem.getAudioInputStream(introURL));
+                introClip = new ACClipWrapper(AudioSystem.getClip(),false);
+                introClip.clip.open(AudioSystem.getAudioInputStream(introURL));
                 hasIntro = true;
             } else introClip = null;
 
             if (loopURL != null) {
-                loopClip = AudioSystem.getClip();
-                loopClip.open(AudioSystem.getAudioInputStream(loopURL));
-                loopClip.loop(Clip.LOOP_CONTINUOUSLY);
+                loopClip = new ACClipWrapper(AudioSystem.getClip(),true);
+                loopClip.clip.open(AudioSystem.getAudioInputStream(loopURL));
             } else throw new ACTrackGenerationException(String.format("Track %s doesn't exist in %s",loopPath,TRACKS_CLEAR_DIRECTORY));
         } catch (LineUnavailableException e) {
             throw new ACTrackGenerationException(e);
@@ -42,21 +41,18 @@ public class ACHourTrack implements ACTrack {
         }
     }
 
-    public void start() {
-        if (hasIntro) {
-            introClip.start();
-            introClip.addLineListener(event -> {
-                if (event.getType().equals(LineEvent.Type.STOP)) playLoop();
-            });
-        } else playLoop(); // if no intro, go straight into loop
+    @Override
+    public ACClipWrapper getIntroClip() {
+        return introClip;
     }
 
-    private void playLoop() {
-        loopClip.start();
+    @Override
+    public ACClipWrapper getMainClip() {
+        return loopClip;
     }
 
-    public void stop() {
-        introClip.stop();
-        loopClip.stop();
+    @Override
+    public boolean doesLoopMain() {
+        return true;
     }
 }
