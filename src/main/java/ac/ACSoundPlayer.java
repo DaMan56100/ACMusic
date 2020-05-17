@@ -7,8 +7,8 @@ import javax.sound.sampled.LineEvent;
 import java.util.*;
 
 public class ACSoundPlayer {
-    ACClipWrapper currentClip;
-    float volume;
+    private ACClipWrapper currentClip;
+    private float volume;
 
     public float getVolume() {
         return volume;
@@ -24,6 +24,8 @@ public class ACSoundPlayer {
     }
 
     public void playTrack(ACTrack track) {
+        if (Objects.nonNull(currentClip)) currentClip.clip.stop();
+
         System.out.println(String.format("intro: %s, main: %s",track.getIntroClip(),track.getMainClip()));
         playClipSequence(
                 track.getIntroClip(),
@@ -41,8 +43,9 @@ public class ACSoundPlayer {
         if (Objects.nonNull(firstClip)) {
             firstClip.clip.addLineListener(event -> {
                 // at stop, play the next clip (if there is one);
-                if (event.getType().equals(LineEvent.Type.STOP) && !clipQueue.isEmpty()) {
-                    playClipSequence(clipQueue);
+                if (event.getType().equals(LineEvent.Type.STOP)) {
+                    if (!clipQueue.isEmpty()) playClipSequence(clipQueue);
+                    else currentClip = null; // if queue is empty, current clip is now null
                 }
             });
             playClip(firstClip);
