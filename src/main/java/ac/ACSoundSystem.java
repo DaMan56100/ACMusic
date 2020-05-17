@@ -21,12 +21,7 @@ public class ACSoundSystem {
     }
 
     public void pause() {
-        try {
-            ACBellTrack bellTrack = new ACBellTrack();
-            soundPlayer.playTrack(bellTrack);
-        } catch (ACTrackGenerationException ex) {
-            ex.printStackTrace();
-        }
+        soundPlayer.stopAll();
     }
 
     public void setTrackInfoDisplayer(IACTrackInfoDisplayer trackInfoDisplayer) {
