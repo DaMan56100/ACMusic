@@ -50,9 +50,4 @@ public class ACHourTrack implements ACTrack {
     public ACClipWrapper getMainClip() {
         return loopClip;
     }
-
-    @Override
-    public boolean doesLoopMain() {
-        return true;
-    }
 }

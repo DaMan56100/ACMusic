@@ -33,9 +33,4 @@ public class ACBellTrack implements ACTrack {
     public ACClipWrapper getMainClip() {
         return bellClip;
     }
-
-    @Override
-    public boolean doesLoopMain() {
-        return false;
-    }
 }
