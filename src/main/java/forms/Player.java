@@ -6,7 +6,7 @@ import main.java.ac.*;
 import javax.swing.*;
 import java.time.LocalDateTime;
 
-public class Player {
+public class Player implements IACTrackInfoDisplayer {
     private JFrame displayFrame;
     ACSoundSystem soundSystem = new ACSoundSystem();
 
@@ -20,6 +20,11 @@ public class Player {
         btnPlay.addActionListener(e -> soundSystem.play());
         btnStop.addActionListener(e -> soundSystem.pause());
         numVolume.addChangeListener(e -> soundSystem.setVolume(numVolume.getValue() / 100f));
+        soundSystem.setTrackInfoDisplayer(this);
+    }
+
+    public void setTrackDetails(String name) {
+        lblTrackDetails.setText("Now Playing: " + name);
     }
 
     public void show() {
@@ -33,4 +38,5 @@ public class Player {
     private JSlider numVolume;
     private JPanel panInterface;
     private JPanel panPlayerControls;
+    private JLabel lblTrackDetails;
 }
