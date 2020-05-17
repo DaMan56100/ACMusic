@@ -8,5 +8,5 @@ public interface ACTrack {
 
     ACClipWrapper getIntroClip();
     ACClipWrapper getMainClip();
-
+    String getName();
 }

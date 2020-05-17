@@ -33,4 +33,9 @@ public class ACBellTrack implements ACTrack {
     public ACClipWrapper getMainClip() {
         return bellClip;
     }
+
+    @Override
+    public String getName() {
+        return "Ding Dong!";
+    }
 }

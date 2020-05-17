@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.net.URL;
 
 public class ACHourTrack implements ACTrack {
-
     private ACClipWrapper introClip;
     private ACClipWrapper loopClip;
     private boolean hasIntro;
+    private String name;
 
     public ACHourTrack(int hour) throws ACInvalidHourException, ACTrackGenerationException {
         if (hour < 0 || hour >= 24) {
@@ -39,6 +39,8 @@ public class ACHourTrack implements ACTrack {
         } catch (UnsupportedAudioFileException e) {
             throw new ACTrackGenerationException(e);
         }
+
+        name = parseHourToString(hour);
     }
 
     @Override
@@ -49,5 +51,23 @@ public class ACHourTrack implements ACTrack {
     @Override
     public ACClipWrapper getMainClip() {
         return loopClip;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Hour stamps are weird. This converts an int hour into a correct AM/PM hour
+     * @param hour Hour in range 0-23
+     * @return A string of the hour, e.g 0 -> "12AM", 22 -> "10PM"
+     */
+    private static String parseHourToString(int hour) {
+        if (hour == 0) return "12AM";
+        if (hour > 0 && hour < 12) return hour + "AM";
+        if (hour == 12) return "12PM";
+        if (hour > 12 && hour < 24) return (hour-12) + "PM";
+        throw new IllegalArgumentException("Hour not in range 0-23");
     }
 }
