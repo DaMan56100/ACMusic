@@ -74,21 +74,16 @@
           </grid>
           <component id="58cc9" class="javax.swing.JSlider" binding="numVolume">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="1" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties>
-              <maximum value="100"/>
-              <paintTicks value="false"/>
-              <paintTrack value="true"/>
-              <snapToTicks value="false"/>
-            </properties>
+            <properties/>
           </component>
-          <component id="d4e34" class="javax.swing.JLabel" binding="lblTrackDetails">
+          <component id="d4e34" class="javax.swing.JLabel">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Player is off"/>
+              <text value="lblTrackDetails"/>
             </properties>
           </component>
         </children>
