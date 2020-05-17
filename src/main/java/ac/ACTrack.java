@@ -8,5 +8,5 @@ public interface ACTrack {
 
     ACClipWrapper getIntroClip();
     ACClipWrapper getMainClip();
-    boolean doesLoopMain();
+
 }
