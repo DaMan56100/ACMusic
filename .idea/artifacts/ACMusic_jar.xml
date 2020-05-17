@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ACMusic:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ACMusic_jar</output-path>
+    <root id="archive" name="ACMusic.jar">
+      <element id="module-output" name="ACMusic" />
+    </root>
+  </artifact>
+</component>
