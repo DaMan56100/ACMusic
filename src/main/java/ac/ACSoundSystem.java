@@ -29,7 +29,11 @@ public class ACSoundSystem {
         }
     }
 
-    public void fadeOutAtNextHour() {
+    public void setTrackInfoDisplayer(IACTrackInfoDisplayer trackInfoDisplayer) {
+        soundPlayer.setTrackInfoDisplayer(trackInfoDisplayer);
+    }
+
+    private void fadeOutAtNextHour() {
         new Thread(() -> {
             boolean fadingOut = false;
             while (!fadingOut) {
