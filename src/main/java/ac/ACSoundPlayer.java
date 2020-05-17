@@ -1,6 +1,7 @@
 package main.java.ac;
 
 import main.java.ClipUtils;
+import main.java.forms.Player;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineEvent;
@@ -9,6 +10,7 @@ import java.util.*;
 public class ACSoundPlayer {
     private ACClipWrapper currentClip;
     private float volume;
+    private IACTrackInfoDisplayer trackInfoDisplayer;
 
     public float getVolume() {
         return volume;
@@ -17,6 +19,10 @@ public class ACSoundPlayer {
     public void setVolume(float volume) {
         this.volume = volume;
         if (Objects.nonNull(currentClip)) ClipUtils.setVolumeOfClip(currentClip.clip,volume);
+    }
+
+    public void setTrackInfoDisplayer(IACTrackInfoDisplayer trackInfoDisplayer) {
+        this.trackInfoDisplayer = trackInfoDisplayer;
     }
 
     public ACSoundPlayer() {
@@ -31,6 +37,8 @@ public class ACSoundPlayer {
                 track.getIntroClip(),
                 track.getMainClip()
         );
+
+        if (Objects.nonNull(trackInfoDisplayer)) trackInfoDisplayer.setTrackDetails(track.getName());
     }
 
     private void playClipSequence(ACClipWrapper... clips) {
